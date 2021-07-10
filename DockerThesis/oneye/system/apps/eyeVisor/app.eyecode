@@ -1,0 +1,81 @@
+<?php
+/*
+  ___  _ __   ___ _   _  ___
+ / _ \| '_ \ / _ \ | | |/ _ \
+| (_) | | | |  __/ |_| |  __/
+ \___/|_| |_|\___|\__, |\___|
+                  |___/
+
+oneye is released under the GNU Affero General Public License Version 3 (AGPL3)
+ -> provided with this release in license.txt
+ -> or via web at www.gnu.org/licenses/agpl-3.0.txt
+
+Copyright © 2005 - 2010 eyeos Team (team@eyeos.org)
+             since 2010 Lars Knickrehm (mail@lars-sh.de)
+*/
+
+function eyeVisor_run($params=null) {
+	global $checknum;
+	$file = $params[0];
+	
+	
+
+	$myWindow = new Window(array(
+		'name' => 'eyeVisorWND',
+		'father' => 'eyeApps',
+		'cent' => 1,
+		'width' => 600,
+		'height' => 600,
+		'title' => basename($file).' - eyeVisor',
+		'sendResizeMsg' => 1,
+		'sigResize' => 'Resize',
+		'removeWin' => 0,
+		'savePosition' => 1
+	));
+	$myWindow->show();
+	
+	$myToolbar = new Toolbar(array(
+		'name' => 'myBar',
+		'father' => $myWindow->name .'_Content'
+	));
+	$myToolbar->show();
+	$myToolbar->addItem('Edit','index.php?theme=' . $_SESSION['usertheme'] . '&extern=images/toolbar/edit.png','Edit');
+	
+	$myHidden = new Hidden(array(
+		'name' => 'vPath',
+		'father' => 'eyeApps',
+		'text' => $file
+	));
+	$myHidden->show();
+	
+	$myLabel = new Label(array(
+		'father' => $myWindow->name .'_Content',
+		'name' => 'eyeVisor_loadingMessage',
+		'x' => 0,
+		'y' => 80,
+		'cent' => 2,
+		'text' => 'Please wait, rendering...'
+	));
+	$myLabel->show(0);
+	
+	$myFrame = new Iframe(array(
+		'name' => 'eyeVisorFrame',
+		'father' => $myWindow->name .'_Content',
+		'x' => 4,
+		'y' => 60,
+		'height' => $myWindow->height - 88,
+		'width' => $myWindow->width - 10,
+		'url' => "index.php?checknum=".$checknum."&msg=getFile"
+	));
+	$myFrame->show();
+	$myFrame->focus();
+	$myFrame->addEvent('onload', 'document.getElementById("' . $GLOBALS['myPid'] . '_eyeVisor_loadingMessage_Container").style.display="none"');
+	
+}
+
+function eyeVisor_end($params=null) {
+	eyeConverter('cleanTmp');
+	eyeWidgets('unserialize');
+}
+
+?>

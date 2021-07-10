@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS accounts;
+USE accounts;
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+	address VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+INSERT INTO users (username, password, address)
+VALUES ('user1', '$2y$10$2vg2lB2zBiAFK06aXQRMoupFEFfSQlwQAu4/NT8n7Zr8R/i1RXjFK', 'https://192.168.0.126:5000');

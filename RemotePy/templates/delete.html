@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+   <body>
+
+      <h3>Delete Account</h3>
+      <hr/>
+
+      {%- for category, message in get_flashed_messages(with_categories = true) %}
+         <div class = "alert alert-danger">
+            {{ message }}
+         </div>
+      {%- endfor %}
+
+      <form action = "{{ request.path }}" method = "post">
+         <label for = "username">Username</label><br>
+         <input type = "text" name = "username" placeholder = "Username" /><br><br>
+         <label for = "password">Password</label><br>
+         <input type = "text" name = "password" placeholder = "password" /><br><br>
+         <input type = "submit" value = "Submit" />
+      </form>
+
+
+
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+
+      <h3>User (<a href = "{{ url_for('new') }}">Add User
+         </a>)</h3>
+
+      <table>
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>Username</th>
+                <th>Password</th>
+                <th>Token</th>
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for user in Users %}
+               <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.username }}</td>
+                   <td>{{ user.password }}</td>
+                   <td>{{ user.token }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+
+   </body>
+</html>

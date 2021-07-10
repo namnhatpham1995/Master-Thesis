@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  apache:
+    build: .
+    container_name: apache_test2
+    ports:
+        - 443:443
+    volumes:
+      #- D:\Download\LAMPdocker\New\oneye:/var/www/html/oneye
+      #- D:\Download\LAMPdocker\New\RegisterAccount:/var/www/html/RegisterAccount
+      - .\oneye1:/var/www/html/oneye1
+      - .\RegisterAccount:/var/www/html/RegisterAccount
+      #- .\apache\apache2.conf:/etc/apache2/apache2.conf
+  db: #other name doesn't work
+    container_name: db_test2
+    image: mysql:latest
+    environment:
+        MYSQL_ROOT_USER: root
+        MYSQL_ROOT_PASSWORD: mysql #username: root, pass: mysql
+        MYSQL_USER: nam
+        MYSQL_PASSWORD: 123456
+        MYSQL_DATABASE: accounts
+    ports:
+        - 3306:3306
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    command: --init-file /var/www/html/MySQL/init.sql
+    volumes:
+        #- D:\Download\LAMPdocker\New\init.sql:/var/www/html/init.sql
+        - .\MySQL:/var/www/html/MySQL
+        
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_test2
+    restart: always
+    ports:
+      - 1357:80
+    environment:
+      - PMA_ARBITRARY=1
+    

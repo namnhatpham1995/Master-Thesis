@@ -1,0 +1,9 @@
+[submodule "docs/libraries/JSLint"]
+	path = docs/libraries/JSLint
+	url = https://github.com/douglascrockford/JSLint.git
+[submodule "docs/libraries/UglifyJS"]
+	path = docs/libraries/UglifyJS
+	url = https://github.com/mishoo/UglifyJS.git
+[submodule "system/extras/unoconv"]
+	path = system/extras/unoconv
+	url = https://github.com/s0600204/unoconv.git
