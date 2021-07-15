@@ -8,7 +8,7 @@ services:
     volumes:
       #- D:\Download\LAMPdocker\New\oneye:/var/www/html/oneye
       #- D:\Download\LAMPdocker\New\RegisterAccount:/var/www/html/RegisterAccount
-      - .\oneye1:/var/www/html/oneye1
+      - .\oneye:/var/www/html/oneye
       - .\RegisterAccount:/var/www/html/RegisterAccount
       #- .\apache\apache2.conf:/etc/apache2/apache2.conf
   db: #other name doesn't work
